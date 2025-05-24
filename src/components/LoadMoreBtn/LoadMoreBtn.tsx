@@ -1,20 +1,12 @@
-import css from "./LoadMoreBtn.module.css";
-import { LoadMoreBtnProps } from "./LoadMoreBtn.types";
+import { FC } from "react";
+import Button from "../Button/Button";
 
-const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({
-  setPage,
-  totalPages,
-  page,
-}) => {
-  return (
-    <div>
-      <button className={css.loadMoreBtn} onClick={() => setPage(page + 1)}>
-        Load more
-      </button>
-      <span className={css.spanEffect}>Page: {page}</span>
-      <span className={css.spanEffect}>Total Page: {totalPages}</span>
-    </div>
-  );
+interface LoadMoreProps {
+  onLoadMoreClick: () => void;
+}
+
+const LoadMore: FC<LoadMoreProps> = ({ onLoadMoreClick }) => {
+  return <Button onClick={onLoadMoreClick}>LoadMore</Button>;
 };
 
-export default LoadMoreBtn;
+export default LoadMore;

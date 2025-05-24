@@ -1,11 +1,15 @@
-import { PuffLoader } from 'react-spinners';
-import css from './Loader.module.css';
+import { BarLoader } from "react-spinners";
+import { CSSProperties } from "react";
 
-export default function Loader() {
-  return (
-    <div className={css.loader}>
-      <PuffLoader color="#36d7b7" />
-    </div>
-  );
-}
+const override: CSSProperties = {
+  display: "block",
+  margin: "32px auto",
+  color: "red",
+  borderColor: "lightblue",
+};
 
+const Loader = () => {
+  return <BarLoader width={320} height={12} cssOverride={override} />;
+};
+
+export default Loader;

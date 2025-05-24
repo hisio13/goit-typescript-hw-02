@@ -1,33 +1,41 @@
 import Modal from "react-modal";
-import { ImageModalProps } from "./ImageModal.types";
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "white",
-  },
-  overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-  },
-};
+import { ImageInfo } from "../../types/types";
+import { FC } from "react";
+import css from "./imageModal.module.css";
 
-const rootElement = document.getElementById("root");
-if (rootElement) {
-  Modal.setAppElement(rootElement);
+interface ImageModalProps {
+  isModalOpen: boolean;
+  openedItem: ImageInfo | null;
+  closeModal: () => void;
 }
 
-const ImageModal: React.FC<ImageModalProps> = ({
-  isOpen,
-  onRequestClose,
-  currentImage,
+const ImageModal: FC<ImageModalProps> = ({
+  isModalOpen,
+  openedItem,
+  closeModal,
 }) => {
   return (
-    <Modal style={customStyles} isOpen={isOpen} onRequestClose={onRequestClose}>
-      {currentImage && <img src={currentImage} alt="Selected" />}
+    <Modal
+      isOpen={isModalOpen}
+      onRequestClose={closeModal}
+      shouldCloseOnOverlayClick={true}
+      shouldCloseOnEsc={true}
+      ariaHideApp={false}
+      style={{
+        overlay: {
+          backgroundColor: "gray",
+        },
+        content: {
+          display: "flex",
+          placeItems: "center",
+        },
+      }}
+    >
+      <img
+        className={css.modalImg}
+        src={openedItem?.urls.full}
+        alt={openedItem?.alt_description}
+      />
     </Modal>
   );
 };

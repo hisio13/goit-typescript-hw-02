@@ -1,37 +1,43 @@
-import { Field, Form, Formik, FormikHelpers } from "formik";
 import toast from "react-hot-toast";
 import css from "./SearchBar.module.css";
-import { FormValues, SearchBarProps } from "./SearchBar.types";
+import Button from "../Button/Button";
+import { FC, FormEvent } from "react";
 
-const initialValues: FormValues = {
-  query: "",
-};
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+}
 
-const SearchBar: React.FC<SearchBarProps> = ({ handleChangeQwery }) => {
-  const handleSabmit = (
-    values: FormValues,
-    options: FormikHelpers<FormValues>
-  ) => {
-    if (!values.query) {
-      toast.error("The field cannot be empty");
+const SearchBar: FC<SearchBarProps> = ({ onSubmit }) => {
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const query = (
+      form.elements.namedItem("query") as HTMLInputElement
+    ).value.trim();
+    if (!query) {
+      toast.error("Please enter a search query");
       return;
     }
 
-    handleChangeQwery(values.query);
-    options.resetForm();
+    onSubmit(query);
+    form.reset();
   };
 
   return (
-    <div className={css.SearchBox}>
-      <Formik initialValues={initialValues} onSubmit={handleSabmit}>
-        <Form>
-          <label>
-            <Field type="text" name="query" placeholder="Enter Text" />
-          </label>
-          <button type="submit">Search</button>
-        </Form>
-      </Formik>
-    </div>
+    <header>
+      <form className={css.searchBarForm} onSubmit={handleSearchSubmit}>
+        <input
+          className={css.searchBarInput}
+          name="query"
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+
+        <Button type="submit">Search</Button>
+      </form>
+    </header>
   );
 };
 

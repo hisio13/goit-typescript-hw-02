@@ -1,21 +1,26 @@
-import React from "react";
+import { FC } from "react";
 import css from "./ImageCard.module.css";
-import { Photo } from "../ImageGallery/ImageGallery.types";
+import { ImageInfo } from "../../types/types";
 
 interface ImageCardProps {
-  sendItem: Photo;
-  handleClick: (url: string) => void;
+  galleryItem: ImageInfo;
+  onClick: (id: string) => void;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({ handleClick, sendItem }) => {
+const ImageCard: FC<ImageCardProps> = ({ galleryItem, onClick }) => {
+  const {
+    urls: { small },
+    alt_description,
+    id,
+  } = galleryItem;
+
   return (
-    <div className={css.listCard}>
+    <div className={css.thumb}>
       <img
-        onClick={() => handleClick(sendItem.urls.regular)}
-        src={sendItem.urls.small}
-        width={400}
-        height={400}
-        alt="image"
+        src={small}
+        alt={alt_description}
+        className={css.cardImg}
+        onClick={() => onClick(id)}
       />
     </div>
   );
