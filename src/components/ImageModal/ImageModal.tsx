@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { ImageInfo } from "../../types/types";
 import { FC } from "react";
-import css from "./imageModal.module.css";
+import css from "./ImageModal.module.css";
 
 interface ImageModalProps {
   isModalOpen: boolean;
