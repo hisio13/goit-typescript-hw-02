@@ -1,18 +1,7 @@
-export interface UnsplashImage {
-    id: string;
-    alt_description: string;
-    urls: {
-      small: string;
-      regular: string;
-      full: string;
-    };
-    user: {
-      name: string;
-    };
-  }
+import { ImageInfo } from "../../types/types";
 
   export interface ImageGalleryProps {
-    sendPhoto: UnsplashImage[];
+    sendPhoto: ImageInfo[];
     handleClick: (url: string) => void;
   }
   
